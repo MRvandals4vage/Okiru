@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-on-background: #e5e2e1;
+  --color-on-tertiary-container: #0b5b00;
+  --color-tertiary-fixed: #79ff5b;
+  --color-tertiary: #37fe11;
+  --color-outline: #859399;
+  --color-secondary: #ebb2ff;
+  --color-on-secondary-fixed: #320047;
+  --color-secondary-fixed: #f8d8ff;
+  --color-background: #0A0A0A;
+  --color-primary: #a4e6ff;
+  --color-on-surface-variant: #bbc9cf;
+  --color-tertiary-fixed-dim: #2ae500;
+  --color-primary-fixed-dim: #4cd6ff;
+  --color-surface-bright: #3a3939;
+  --color-surface-container-highest: #353534;
+  --color-surface-container-low: #1c1b1b;
+  --color-primary-fixed: #b7eaff;
+  --color-on-tertiary-fixed-variant: #095300;
+  --color-on-error: #690005;
+  --color-on-secondary-container: #480064;
+  --color-on-secondary: #520071;
+  --color-surface-container-high: #2a2a2a;
+  --color-on-primary: #003543;
+  --color-outline-variant: #3c494e;
+  --color-surface-dim: #131313;
+  --color-inverse-primary: #00677f;
+  --color-surface-variant: #353534;
+  --color-on-tertiary: #053900;
+  --color-surface-tint: #4cd6ff;
+  --color-on-secondary-fixed-variant: #74009f;
+  --color-on-primary-fixed-variant: #004e60;
+  --color-primary-container: #00d1ff;
+  --color-surface-container: #201f1f;
+  --color-inverse-surface: #e5e2e1;
+  --color-on-primary-container: #00566a;
+  --color-surface: #131313;
+  --color-on-surface: #e5e2e1;
+  --color-on-primary-fixed: #001f28;
+  --color-secondary-container: #ce5dff;
+  --color-secondary-fixed-dim: #ebb2ff;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-inverse-on-surface: #313030;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-tertiary-container: #28de00;
+  --color-on-error-container: #ffdad6;
+  --color-on-tertiary-fixed: #022100;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Sora", sans-serif;
+}
+
+@layer utilities {
+  .glass-panel {
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(164, 230, 255, 0.1);
+    position: relative;
+  }
+
+  /* Shimmer effect for progress markers */
+  .shimmer-bar {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    animation: shimmer 2.5s infinite;
+  }
+
+  @keyframes shimmer {
+    100% { left: 200%; }
+  }
+
+  /* Scanline rolling down HUD elements */
+  .scanline {
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(0deg, rgba(164, 230, 255, 0.04) 0%, transparent 100%);
+    position: absolute;
+    bottom: 100%;
+    animation: scan-anim 6s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  @keyframes scan-anim {
+    0% { bottom: 100%; }
+    100% { bottom: -100px; }
+  }
+
+  /* Corner chamfers and sci-fi glowing borders */
+  .hud-border {
+    position: relative;
+    border: 1px solid rgba(164, 230, 255, 0.25);
+    background: rgba(14, 14, 14, 0.75);
+    backdrop-filter: blur(20px);
+  }
+
+  .hud-border::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 16px;
+    height: 16px;
+    border-top: 2px solid #a4e6ff;
+    border-left: 2px solid #a4e6ff;
+  }
+
+  .hud-border::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 16px;
+    height: 16px;
+    border-bottom: 2px solid #a4e6ff;
+    border-right: 2px solid #a4e6ff;
+  }
+
+  .neon-glow-primary {
+    box-shadow: 0 0 20px rgba(164, 230, 255, 0.15);
+  }
+
+  .neon-glow-purple {
+    box-shadow: 0 0 20px rgba(235, 178, 255, 0.15);
+  }
+
+  .rank-badge-clip {
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+  }
+
+  /* Glowing text */
+  .glitch-text-glow {
+    text-shadow: 0 0 10px rgba(164, 230, 255, 0.6), 0 0 2px rgba(164,230,255,0.9);
+  }
+}
+
+body {
+  background-color: #050505;
+  color: #e5e2e1;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars for a game-console style */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f0f10;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2c;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4ab5e1;
+}
+
